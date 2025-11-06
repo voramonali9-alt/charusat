@@ -1,13 +1,10 @@
 #include <stdio.h>
-
-// Manual length
 int noteLength(char note[]) {
     int i = 0;
     while (note[i] != '\0') i++;
     return i;
 }
 
-// Reverse
 void reverse(char note[]) {
     int len = noteLength(note);
     for (int i = 0, j = len - 1; i < j; i++, j--) {
@@ -17,7 +14,6 @@ void reverse(char note[]) {
     }
 }
 
-// Compare
 int compare(char a[], char b[]) {
     int i = 0;
     while (a[i] != '\0' && b[i] != '\0') {
@@ -27,7 +23,6 @@ int compare(char a[], char b[]) {
     return a[i] - b[i];
 }
 
-// Copy
 void copy(char src[], char dest[]) {
     int i = 0;
     while (src[i] != '\0') {
@@ -36,8 +31,6 @@ void copy(char src[], char dest[]) {
     }
     dest[i] = '\0';
 }
-
-// Concatenate
 void concatenate(char a[], char b[]) {
     int i = 0, j = 0;
     while (a[i] != '\0') i++;
@@ -47,24 +40,18 @@ void concatenate(char a[], char b[]) {
     }
     a[i] = '\0';
 }
-
-// To Upper
 void toUpper(char note[]) {
     for (int i = 0; note[i] != '\0'; i++) {
         if (note[i] >= 'a' && note[i] <= 'z')
             note[i] = note[i] - 32;
     }
 }
-
-// To Lower
 void toLower(char note[]) {
     for (int i = 0; note[i] != '\0'; i++) {
         if (note[i] >= 'A' && note[i] <= 'Z')
             note[i] = note[i] + 32;
     }
 }
-
-// Capitalize Words
 void capitalizeWords(char note[]) {
     int capNext = 1;
     for (int i = 0; note[i] != '\0'; i++) {
@@ -96,7 +83,7 @@ int main() {
         printf("6. Upper Case\n7. Lower Case\n8. Capitalize Words\n0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
-        getchar(); // clear buffer
+        getchar();
 
         switch (choice) {
             case 1:
@@ -150,3 +137,4 @@ int main() {
 
     return 0;
 }
+
