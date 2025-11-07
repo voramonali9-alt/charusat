@@ -11,9 +11,12 @@ printf("%d",j);}
 printf("\n");}
 for(int i=2;i<=n;i++){
 for(int s=0;s<n-i;s++){
-printf(" 5 ");}
-for(int j=i;j>=1;j--){
-printf("%d",j);}
+printf("  ");}
+for(int j=i;j>=1;j--)
+printf("%d",j);
+  for(int j=2;j<=i;j++)
+    printf("%d",j);
 printf("\n");}
 return 0;
 }
+
