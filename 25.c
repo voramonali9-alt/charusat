@@ -1,34 +1,25 @@
+//monali vora 25ce140
 #include <stdio.h>
 #include <string.h>
-
 struct Book {
     char title[50];
-    int available; 
-};
-
-
+    int available; };
 void displayBooks(struct Book library[], int totalBooks);
 int searchBook(struct Book library[], int totalBooks, char bookName[]);
 void borrowBook(struct Book library[], int totalBooks, char bookName[]);
 void returnBook(struct Book library[], int totalBooks, char bookName[]);
 float calculateFine(int daysLate);
-
 int main() {
     struct Book library[5] = {
         {"C Programming", 1},
         {"Data Structures", 1},
         {"Operating System", 1},
         {"Database Systems", 1},
-        {"AI Fundamentals", 1}
-    };
-
-    int totalBooks = 5;
+        {"AI Fundamentals", 1}  };
+ int totalBooks = 5;
     int choice, days;
     char name[50];
-
-    do {
-        printf("\n--- LIBRARY MANAGEMENT SYSTEM ---\n");
-        printf("1. Display All Books\n");
+    do {printf("1. Display All Books\n");
         printf("2. Search Book\n");
         printf("3. Borrow Book\n");
         printf("4. Return Book\n");
@@ -36,8 +27,7 @@ int main() {
         printf("0. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-
-        switch (choice) {
+ switch (choice) {
             case 1:
                 displayBooks(library, totalBooks);
                 break;
@@ -80,25 +70,17 @@ int main() {
 
     return 0;
 }
-
-
 void displayBooks(struct Book library[], int totalBooks) {
     printf("\n--- Book List ---\n");
     for (int i = 0; i < totalBooks; i++) {
         printf("%d. %-25s : %s\n", i + 1, library[i].title,
-               library[i].available ? "Available" : "Borrowed");
-    }
+               library[i].available ? "Available" : "Borrowed");  }
 }
-
-
 int searchBook(struct Book library[], int totalBooks, char bookName[]) {
     for (int i = 0; i < totalBooks; i++) {
         if (strcasecmp(library[i].title, bookName) == 0)
-            return 1; 
-    }
+            return 1;   }
     return 0; 
-
-
 void borrowBook(struct Book library[], int totalBooks, char bookName[]) {
     for (int i = 0; i < totalBooks; i++) {
         if (strcasecmp(library[i].title, bookName) == 0) {
@@ -108,13 +90,10 @@ void borrowBook(struct Book library[], int totalBooks, char bookName[]) {
             } else {
                 printf("Sorry! '%s' is already borrowed.\n", library[i].title);
             }
-            return;
-        }
+            return;  }
     }
     printf("Book not found in library.\n");
 }
-
-
 void returnBook(struct Book library[], int totalBooks, char bookName[]) {
     for (int i = 0; i < totalBooks; i++) {
         if (strcasecmp(library[i].title, bookName) == 0) {
@@ -122,15 +101,10 @@ void returnBook(struct Book library[], int totalBooks, char bookName[]) {
                 library[i].available = 1;
                 printf("'%s' has been successfully returned.\n", library[i].title);
             } else {
-                printf("This book was not borrowed.\n");
-            }
-            return;
-        }
-    }
+                printf("This book was not borrowed.\n"); }
+            return; }  }
     printf("Book not found in library.\n");
 }
-
-
 float calculateFine(int daysLate) {
     if (daysLate <= 0)
         return 0.0;
