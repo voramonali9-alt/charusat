@@ -1,3 +1,4 @@
+//monali vora 25ce140
 #include<stdio.h>
 int main(){
     int n;
@@ -55,3 +56,4 @@ case 4: if(i==0){
  }
  return 0;
 }
+
