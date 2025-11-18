@@ -1,3 +1,4 @@
+//monali vora 25ce140
 #include<stdio.h>
 int main(){
 int n=4;
@@ -22,4 +23,5 @@ printf("\n");
 
 return 0;
 }
+
 
