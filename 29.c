@@ -1,56 +1,133 @@
 //monali vora 25ce140
+
 #include <stdio.h>
 #include <string.h>
-struct Patient {
-char name[50]; int age;float temperature; int systolic;int diastolic;};
-void inputPatients(struct Patient *p, int n);
-void displayPatients(struct Patient *p, int n);
-void alertPatients(struct Patient *p, int n);
+
+struct Book {
+    char title[50];
+    int available;
+};
+
+void displayBooks(struct Book library[], int totalBooks);
+int searchBook(struct Book library[], int totalBooks, char bookName[]);
+void borrowBook(struct Book library[], int totalBooks, char bookName[]);
+void returnBook(struct Book library[], int totalBooks, char bookName[]);
+float calculateFine(int daysLate);
+
 int main() {
-    struct Patient patients[10];
-    struct Patient *ptr = patients; 
-    int n;
-    printf("Enter number of patients (max 10): ");
-    scanf("%d", &n);
-    getchar();
- inputPatients(ptr, n);
- displayPatients(ptr, n);
- alertPatients(ptr, n);
-return 0;}
-void inputPatients(struct Patient *p, int n) {
-  for (int i = 0; i < n; i++) {
-     printf("\nEnter details for Patient %d:\n", i + 1);
-  printf("Name: ");
-    fgets((p + i)->name, 50, stdin);
-    (p + i)->name[strcspn((p + i)->name, "\n")] = 0;
-  printf("Age: ");
-     scanf("%d", &(p + i)->age);
- printf("Temperature (°F): ");
- scanf("%f", &(p + i)->temperature);
- printf("Systolic Pressure: ");
- scanf("%d", &(p + i)->systolic);
- printf("Diastolic Pressure: ");
- scanf("%d", &(p + i)->diastolic);
- getchar();
-    }}
-void displayPatients(struct Patient *p, int n) {
-  for (int i = 0; i < n; i++) {
-  printf("Patient %d:\n", i + 1);
-  printf("Name: %s\n", (p + i)->name);
-  printf("Age: %d\n", (p + i)->age);
-printf("Temperature: %.1f°F\n", (p + i)->temperature);
-        printf("Blood Pressure: %d/%d mmHg\n", (p + i)->systolic, (p + i)->diastolic);   }
+    struct Book library[5] = {
+        {"C Programming", 1},
+        {"Data Structures", 1},
+        {"Operating System", 1},
+        {"Database Systems", 1},
+        {"AI Fundamentals", 1}
+    };
+
+    int totalBooks = 5;
+    int choice, days;
+    char name[50];
+
+    do {
+        printf("\n============================\n");
+        printf("1. Display All Books\n");
+        printf("2. Search Book\n");
+        printf("3. Borrow Book\n");
+        printf("4. Return Book\n");
+        printf("5. Calculate Fine\n");
+        printf("0. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+        getchar(); // Clear newline from buffer
+
+        switch (choice) {
+            case 1:
+                displayBooks(library, totalBooks);
+                break;
+
+            case 2:
+                printf("Enter book name to search: ");
+                fgets(name, sizeof(name), stdin);
+                name[strcspn(name, "\n")] = 0;
+                if (searchBook(library, totalBooks, name))
+                    printf("Book found.\n");
+                else
+                    printf("Book not found.\n");
+                break;
+
+            case 3:
+                printf("Enter book name to borrow: ");
+                fgets(name, sizeof(name), stdin);
+                name[strcspn(name, "\n")] = 0;
+                borrowBook(library, totalBooks, name);
+                break;
+
+            case 4:
+                printf("Enter book name to return: ");
+                fgets(name, sizeof(name), stdin);
+                name[strcspn(name, "\n")] = 0;
+                returnBook(library, totalBooks, name);
+                break;
+
+            case 5:
+                printf("Enter number of overdue days: ");
+                scanf("%d", &days);
+                printf("Fine = ₹%.2f\n", calculateFine(days));
+                break;
+
+            case 0:
+                printf("Thank you! Exiting.\n");
+                break;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+
+    } while (choice != 0);
+
+    return 0;
 }
-void alertPatients(struct Patient *p, int n) {
- int alertFound = 0;
-    for (int i = 0; i < n; i++) {
-   if ((p + i)->temperature > 99.0 || (p + i)->systolic > 140 || (p + i)->diastolic > 90) {
-            printf("\nPatient: %s requires attention!\n", (p + i)->name);
- if ((p + i)->temperature > 99.0)
-                printf("-> Fever detected (%.1f°F)\n", (p + i)->temperature);
-  if ((p + i)->systolic > 140 || (p + i)->diastolic > 90)
-                printf(" %d/%d mmHg\n", (p + i)->systolic, (p + i)->diastolic);
-            alertFound = 1; } }
-    if (!alertFound)
-        printf("All patients are healthy.\n");
+
+void displayBooks(struct Book library[], int totalBooks) {
+    printf("\n--- Book List ---\n");
+    for (int i = 0; i < totalBooks; i++) {
+        printf("%d. %-25s : %s\n", i + 1, library[i].title,
+               library[i].available ? "Available" : "Borrowed");
+    }
+}
+
+int searchBook(struct Book library[], int totalBooks, char bookName[]) {
+    for (int i = 0; i < totalBooks; i++) {
+        if (strcasecmp(library[i].title, bookName) == 0)
+            return 1;
+    }
+    return 0;
+}
+
+void borrowBook(struct Book library[], int totalBooks, char bookName[]) {
+    for (int i = 0; i < totalBooks; i++) {
+        if (strcasecmp(library[i].title, bookName) == 0) {
+            if (library[i].available) {
+                library[i].available = 0;
+                printf("You borrowed '%s'.\n", library[i].title);
+            } else {    
+    printf("'%s' is already borrowed.\n", library[i].title);}       
+            return;   }
+}   printf("Book not found.\n");
+}
+void returnBook(struct Book library[], int totalBooks, char bookName[]) {
+    for (int i = 0; i < totalBooks; i++) {
+    if (strcasecmp(library[i].title, bookName) == 0) {
+            if (!library[i].available) {
+                library[i].available = 1;
+                printf("Returned: '%s'\n", library[i].title);
+} else {
+                printf("This book was not borrowed.\n");}
+            return;
+        }}
+    printf("Book not found.\n");
+}float calculateFine(int daysLate) {
+    if (daysLate <= 0) return 0.0;
+    if (daysLate <= 5) return daysLate * 2.0;
+    if (daysLate <= 10) return daysLate * 5.0;
+    return daysLate * 10.0;
 }
